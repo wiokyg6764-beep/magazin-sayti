@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Smart Shop</title>
+     <link rel="stylesheet" href="info.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="logo">⚡ SmartShop</div>
+            <nav>
+                <button class="nav-btn active" onclick="filterCategory('all')">Barchasi</button>
+                <button class="nav-btn" onclick="filterCategory('uy')">Uy</button>
+                <button class="nav-btn" onclick="filterCategory('elektronika')">Elektron buyumlar</button>
+                <button class="nav-btn" onclick="filterCategory('mashina')">Mashinalar</button>
+                <button class="nav-btn" onclick="filterCategory('jixozlar')">Uy jihozlari</button>
+                <button class="nav-btn" onclick="filterCategory('smartfon')">Smartfonlar</button>
+            </nav>
+            <div class="header-right">
+                <input type="text" id="search-input" placeholder="Qidiruv..." oninput="searchProducts()">
+                <button class="cart-btn" onclick="toggleCart()">
+                    🛒 Savatcha <span id="cart-count">0</span>
+                </button>
+                <button class="admin-btn" onclick="toggleAdminModal()" title="Admin Panel">🔑</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2 class="section-title">Mahsulotlarimiz</h2>
+            <div class="products-grid" id="products-container">
+                </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">⚡ SmartShop</div>
+            <div class="footer-info">
+                <p>Biz haqimizda: Eng zamonaviy va sifatli mahsulotlar faqat bizda.</p>
+                <p>Aloqa: +998 90 123-4567 | Manzil: Toshkent sh., Chilonzor</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal-overlay" id="cart-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="toggleCart()">&times;</span>
+            <h2>Sizning savatchangiz</h2>
+            <div id="cart-items-list">
+                </div>
+            <div class="cart-total" id="cart-total-price">Jami: 0 söm</div>
+            
+            <hr>
+            
+            <h3>Yetkazib berish ma'lumotlari</h3>
+            <form id="order-form" onsubmit="submitOrder(event)">
+                <input type="text" id="customer-name" placeholder="Ismingiz" required>
+                <input type="tel" id="customer-phone" placeholder="Telefon raqamingiz" required>
+                <input type="text" id="customer-address" placeholder="Turar joyingiz (Manzil)" required>
+                <button type="submit" class="order-submit-btn">Buyurtma berish</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="admin-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="toggleAdminModal()">&times;</span>
+            
+            <div id="admin-login-sec">
+                <h2>Admin Kirish</h2>
+                <input type="text" id="admin-username" placeholder="Login">
+                <input type="password" id="admin-password" placeholder="Parol">
+                <button class="order-submit-btn" onclick="loginAdmin()">Kirish</button>
+            </div>
+
+            <div id="admin-dashboard" class="hidden">
+                <h2>Admin Panel</h2>
+                <p>📊 <strong>Buyurtma berganlar soni:</strong> <span id="orders-count-dash">0</span> kishi</p>
+                
+                <button class="nav-btn" onclick="changeAdminPassword()">Parolni almashtirish</button>
+                <hr>
+                <h3>Yangi mahsulot qo'shish</h3>
+                <input type="text" id="new-p-name" placeholder="Mahsulot nomi">
+                <input type="text" id="new-p-img" placeholder="Rasm URL manzili (yoki havola)">
+                <input type="number" id="new-p-price" placeholder="Narxi (so'm)">
+                <input type="number" id="new-p-stock" placeholder="Soni (Nechta var)">
+                
+                <label style="display:block; margin: 10px 0 5px;">Kategoriyalarni tanlang (Ko'p tanlash mumkin):</label>
+                <select id="new-p-cats" multiple style="width: 100%; height: 80px;">
+                    <option value="uy">Uy</option>
+                    <option value="elektronika">Elektron buyumlar</option>
+                    <option value="mashina">Mashinalar</option>
+                    <option value="jixozlar">Uy jihozlari</option>
+                    <option value="smartfon">Smartfonlar</option>
+                </select>
+                
+                <button class="order-submit-btn" onclick="addNewProduct()" style="background: #27ae60; margin-top:10px;">Qo'shish</button>
+                
+                <hr>
+                <h3>Mavjud mahsulotlarni o'chirish</h3>
+                <div id="admin-products-list" style="max-height: 200px; overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
